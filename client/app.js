@@ -1,8 +1,8 @@
+console.log("entering the app.js function");
 (function(){
+   var app = angular.module('app',['ngRoute', 'angular-jwt']);
    
-   var votingapp = angular.module('votingapp',['ngRoute','angular-jwt']);
-   
-   votingapp.config(function($routeProvider, $locationProvider){
+   app.config(function($routeProvider, $locationProvider){
        
        $locationProvider.html5Mode(true);
        
@@ -43,42 +43,43 @@
        });
    });
    
-   votingapp.controller('MainController',MainController);
+   app.controller('MainController',MainController);
    
    function MainController($location,$window){
        var vm = this;
        vm.title = 'MainController';
+       console.log("in the main controller");
    }
    
-   votingapp.controller('LoginController',LoginController);
+   app.controller('LoginController',LoginController);
    
    function LoginController($location,$window){
        var vm = this;
        vm.title = "LoginController";
    }
    
-   votingapp.controller('RegisterController',RegisterController);
+   app.controller('RegisterController',RegisterController);
    
    function RegisterController($location,$window){
        var vm = this;
        vm.title = "RegisterController";
    }
    
-   votingapp.controller('ProfileController',ProfileController);
+   app.controller('ProfileController',ProfileController);
    
    function ProfileController($location,$window){
        var vm = this;
        vm.title = 'ProfileController';
    }
    
-   votingapp.controller('PollsController',PollsController);
+   app.controller('PollsController',PollsController);
    
    function PollsController($location,$window){
        var vm = this;
        vm.title = 'PollsController';
    }
    
-   votingapp.controller('PollController',PollController);
+   app.controller('PollController',PollController);
    
    function PollController($location,$window){
        var vm = this;

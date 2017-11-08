@@ -1,5 +1,5 @@
-var http = require('http');
-var path = require('path');
+//var http = require('http');
+//var path = require('path');
 
 //db string
 var db = "mongodb://jeuscortezdb";
@@ -9,7 +9,7 @@ var port = process.env.PORT || 8000;
 
 //node modules
 var async = require('async');
-var socketio = require('socket.io');
+//var socketio = require('socket.io');
 var express = require('express');
 var morgan = require("morgan");
 var mongoose = require("mongoose");
@@ -50,7 +50,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/node_modules',express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname,'/client'));
-app.get("*",function(request,response){
+app.get("*", function(request,response){
   response.sendfile(__dirname + '/client/index.html');
 });
 
