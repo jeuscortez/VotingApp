@@ -8,7 +8,8 @@ var db = "mongodb://jeuscortezdb";
 var port = process.env.PORT || 8000;
 
 //router
-var router = require("/routes/api");
+var router = require("./routes/api");
+
 //node modules
 var async = require('async');
 //var socketio = require('socket.io');

@@ -91,7 +91,8 @@ console.log("entering the app.js function");
                console.log("Invalid Credentials");
                return;
            }
-           $http.post('/api/register',vm.user).then(function(response){
+           $http.post('/api/register', vm.user)
+           .then(function(request, response){
                     console.log(response);   
            });
        }
