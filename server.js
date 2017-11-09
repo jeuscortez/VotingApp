@@ -7,6 +7,8 @@ var db = "mongodb://jeuscortezdb";
 //db process
 var port = process.env.PORT || 8000;
 
+//router
+var router = require("/routes/api");
 //node modules
 var async = require('async');
 //var socketio = require('socket.io');
@@ -50,6 +52,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/node_modules',express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname,'/client'));
+app.use('/api', router);
 app.get("*", function(request,response){
   response.sendfile(__dirname + '/client/index.html');
 });

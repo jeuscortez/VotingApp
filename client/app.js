@@ -6,41 +6,63 @@ console.log("entering the app.js function");
        
        $locationProvider.html5Mode(true);
        
-       $routeProvider.when('/main',{
-          templateUrl: './templates/main.html',
+       $routeProvider.when('/',{
+          templateUrl: 'client/templates/main.html',
           controller: 'MainController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: false
+          }
        });
        
        $routeProvider.when('/login',{
-          templateUrl: './templates/login.html',
+          templateUrl: 'client/templates/login.html',
           controller: 'LoginController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: false
+          }
        });
        
        $routeProvider.when('/register',{
-          templateUrl: './templates/register.html',
+          templateUrl: 'client/templates/register.html',
           controller: 'RegisterController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: false
+          }
        });
        
        $routeProvider.when('/polls',{
-          templateUrl: './templates/polls.html',
+          templateUrl: 'client/templates/polls.html',
           controller: 'PollsController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: false
+          }
        });
        
        $routeProvider.when('/polls/:id',{
-          templateUrl: './templates/poll.html',
+          templateUrl: 'client/templates/poll.html',
           controller: 'PollController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: false
+          }
        });
        
        $routeProvider.when('/profile',{
-          templateUrl: './templates/profile.html',
+          templateUrl: 'client/templates/profile.html',
           controller: 'ProfileController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          access:{
+              restricted: true
+          }
        });
+       
+       $routeProvider.otherwise({
+        redirectTo: '/'
+      });
    });
    
    app.controller('MainController',MainController);
@@ -60,9 +82,19 @@ console.log("entering the app.js function");
    
    app.controller('RegisterController',RegisterController);
    
-   function RegisterController($location,$window){
+   function RegisterController($location,$window,$http){
        var vm = this;
        vm.title = "RegisterController";
+       
+       vm.register = function(){
+           if(!vm.user){
+               console.log("Invalid Credentials");
+               return;
+           }
+           $http.post('/api/register',vm.user).then(function(response){
+                    console.log(response);   
+           });
+       }
    }
    
    app.controller('ProfileController',ProfileController);
