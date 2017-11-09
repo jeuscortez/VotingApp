@@ -5,6 +5,27 @@ var bcrypt = require("bcrypt-nodejs");
 var jwt = require("jsonwebtoken");
 var User = require("../models/user");
 
+
+
+//verification of token
+router.post('/verify',function(request,response){
+    //console.log(request.headers);
+    //var token = request.headers.authorization.split('')[1];
+    //console.log(request.body.token);
+    
+    if(!request.body.token){
+        return response.status(400).send('No token has been provided!');
+    }
+    
+    jwt.verify(request.body.token,process.env.secret,function(err,decoded){
+       if(err){
+           return response.status(400).send("Error with Web Token");
+       }
+       return response.status(200).send(decoded);
+    });
+    
+});
+
 //Login
 router.post('/login',function(request, response) {
    

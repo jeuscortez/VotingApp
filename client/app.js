@@ -2,6 +2,38 @@ console.log("entering the app.js function");
 (function(){
    var app = angular.module('app',['ngRoute', 'angular-jwt']);
    
+   
+   
+   
+   
+   
+   app.run(function($http,$rootScope,$location,$window){
+      
+      $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.localStorage.token;
+      
+      $rootScope.$on('$routeChangeStart',function(event,nextRoute,currentRoute){
+          
+          if(nextRoute.access !== undefined && nextRoute.access.restricted === true && !$window.localStorage.token){
+              event.preventDefault();
+              $location.path('/login');
+          }
+          
+          if($window.localStorage.token && nextRoute.access.restricted === true){
+                $http.post('/api/verify',{token:$window.localStorage.token})
+                .then(function(response){
+                    console.log('Your token is valid');
+                },function(err){
+                    delete $window.localStorage.token;
+                    $location.path('/login');
+                });
+          }
+      });
+   });
+   
+   
+   
+   
+   
    app.config(function($routeProvider, $locationProvider){
        
        $locationProvider.html5Mode(true);
