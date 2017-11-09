@@ -92,8 +92,10 @@ console.log("entering the app.js function");
                return;
            }
            $http.post('/api/register', vm.user)
-           .then(function(request, response){
-                    console.log(response);   
+           .then(function(response){
+                    console.log(response);///   
+           },function(err){
+               vm.error = err.data.errmsg;
            });
        }
    }
