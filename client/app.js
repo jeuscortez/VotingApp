@@ -177,13 +177,16 @@ console.log("entering the app.js function");
    
    app.controller('PollsController',PollsController);
    
-   function PollsController($location,$window){
+   function PollsController($location,$window,$http,jwtHelper){
        var vm = this;
+       var user = jwtHelper.decodeToken($window.localStorage.token);
+       var id = user.data._id;
        vm.title = 'PollsController';
        
        vm.poll ={
            options:[],
-           name:''
+           name:'',
+           user: id
        }
        
        vm.poll.options = [{
@@ -199,7 +202,16 @@ console.log("entering the app.js function");
        }
        
        vm.addPoll = function(){
-           console.log(vm.poll);
+           if(!vm.poll){
+               console.log("Invalid data supplied!");
+               return;
+           }
+           $http.post('/api/polls',vm.poll)
+                .then(function(response){
+                   console.log(response); 
+                },function(err){
+                    console.log(err);
+                });
        }
    }
    
