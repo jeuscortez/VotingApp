@@ -165,6 +165,14 @@ console.log("entering the app.js function");
       if(payload){
           vm.user = payload;
       }
+      
+      
+      vm.logOut = function(){
+          
+          delete window.localStorage.token;
+          vm.user = null;
+          $location.path('/login');  
+      }
    }
    
    app.controller('PollsController',PollsController);
@@ -172,6 +180,27 @@ console.log("entering the app.js function");
    function PollsController($location,$window){
        var vm = this;
        vm.title = 'PollsController';
+       
+       vm.poll ={
+           options:[],
+           name:''
+       }
+       
+       vm.poll.options = [{
+           name: '',
+           votes: 0
+       }];
+       
+       vm.addOption = function(){
+           vm.poll.options.push({
+               name:'',
+               votes:0
+           });
+       }
+       
+       vm.addPoll = function(){
+           console.log(vm.poll);
+       }
    }
    
    app.controller('PollController',PollController);
